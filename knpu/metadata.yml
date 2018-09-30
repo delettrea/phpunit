@@ -1,6 +1,6 @@
 chapters:
     - phpunit-setup
-    - test-assert-code
+    - tests-assert-code
     - tdd-cycle
     - tdd-in-practice
     - factory-testing
