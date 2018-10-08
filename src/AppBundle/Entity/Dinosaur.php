@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dinosaur
 {
+
+    const LARGE = 10;
+    const HUGE = 20;
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -20,18 +24,46 @@ class Dinosaur
         return $this->length;
     }
 
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $genus;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isCarnivorous;
+
+    public function __construct(string $genus = 'Unknown', bool $isCarnivorous = false)
+    {
+        $this->genus = $genus;
+        $this->isCarnivorous = $isCarnivorous;
+    }
+
     public function setLength(int $length)
     {
         $this->length = $length;
     }
 
-    public function testDinosaurHasNotShrunk()
+    public function getSpecification(): string
     {
-        $dinosaur = new Dinosaur();
+        return sprintf(
+            'The %s %scarnivorous dinosaur is %d meters long',
+            $this->genus,
+            $this->isCarnivorous ? '' : 'non-',
+            $this->length
+        );
+    }
 
-        $dinosaur->setLength(15);
+    public function getGenus(): string
+    {
+        return $this->genus;
+    }
 
-        $this->assertGreaterThan(12, $dinosaur->getLength(), 'Did you put it in the washing machine?');
+    public function isCarnivorus() : bool
+    {
+        return $this->isCarnivorous;
     }
 
 }
