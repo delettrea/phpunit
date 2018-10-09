@@ -15,7 +15,8 @@ class DinosaurFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->factory = new DinosaurFactory();
+        $mockLengthDeterminator = $this->createMock(DinosaurLengthDeterminator::class);
+        $this->factory = new DinosaurFactory($mockLengthDeterminator);
     }
 
     public function testItGrowsALargeVelociraptor()
@@ -41,25 +42,23 @@ class DinosaurFactoryTest extends TestCase
         $this->assertSame(1, $dinosaur->getLength());
     }*/
 
+
     /**
      * @dataProvider getSpecificationTests
      */
-    public function testItGrowsADinosaurFromSpecification(string $spec, bool $expectedIsLarge, bool $expectedIsCarnivorous)
+    public function testItGrowsADinosaurFromSpecification(string $spec, bool $expectedIsCarnivorous)
     {
         $dinosaur = $this->factory->growFromSpecification($spec);
-        if ($expectedIsLarge) {
-            $this->assertGreaterThanOrEqual(Dinosaur::LARGE, $dinosaur->getLength());
-        } else {
-            $this->assertLessThan(Dinosaur::LARGE, $dinosaur->getLength());
-        }
-        $this->assertSame($expectedIsCarnivorous, $dinosaur->isCarnivorus(), 'Diets do not match');
+        $this->assertSame($expectedIsCarnivorous, $dinosaur->isCarnivorous(), 'Diets do not match');
     }
+
 
     public function getSpecificationTests()
     {
         return [
-            ['large carnivorous dinosaur', true, true],
-            ['large herbivore', true, false],
+            ['large carnivorous dinosaur', true],
+            'default response' => ['give me all the cookies!!!', false],
+            ['large herbivore', false],
         ];
     }
 

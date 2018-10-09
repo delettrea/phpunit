@@ -19,6 +19,12 @@ class Dinosaur
      */
     private $length = 0;
 
+    /**
+     * @var Enclosure
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enclosure", inversedBy="dinosaurs")
+     */
+    private $enclosure;
+
     public function getLength(): int
     {
         return $this->length;
@@ -61,7 +67,7 @@ class Dinosaur
         return $this->genus;
     }
 
-    public function isCarnivorus() : bool
+    public function isCarnivorous() : bool
     {
         return $this->isCarnivorous;
     }
