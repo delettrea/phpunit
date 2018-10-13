@@ -18,20 +18,15 @@ class EnclosureBuilderService
      * @var DinosaurFactory
      */
     private $dinosaurFactory;
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        DinosaurFactory $dinosaurFactory
-    )
 
+    public function __construct(
+        EntityManagerInterface $entityManager, DinosaurFactory $dinosaurFactory)
     {
         $this->entityManager = $entityManager;
         $this->dinosaurFactory = $dinosaurFactory;
     }
     public function buildEnclosure(
-        int $numberOfSecuritySystems = 1,
-        int $numberOfDinosaurs = 3
-
-    ): Enclosure
+        int $numberOfSecuritySystems = 1, int $numberOfDinosaurs = 3): Enclosure
 
     {
         $enclosure = new Enclosure();
@@ -39,8 +34,8 @@ class EnclosureBuilderService
         $this->addDinosaurs($numberOfDinosaurs, $enclosure);
         return $enclosure;
     }
-    private function addSecuritySystems(int $numberOfSecuritySystems, Enclosure $enclosure)
 
+    private function addSecuritySystems(int $numberOfSecuritySystems, Enclosure $enclosure)
     {
         for ($i = 0; $i < $numberOfSecuritySystems; $i++) {
             $securityName = array_rand(['Fence', 'Electric fence', 'Guard tower']);
@@ -49,12 +44,13 @@ class EnclosureBuilderService
         }
     }
     private function addDinosaurs(int $numberOfDinosaurs, Enclosure $enclosure)
-
     {
-        $length = array_rand(['small', 'large', 'huge']);
-        $diet = array_rand(['herbivore', 'carnivorous']);
-        $specification = "{$length} {$diet} dinosaur";
-        $dinosaur = $this->dinosaurFactory->growFromSpecification($specification);
-        $enclosure->addDinosaur($dinosaur);
+        for ($i = 0; $i < $numberOfDinosaurs; $i++) {
+            $length = array_rand(['small', 'large', 'huge']);
+            $diet = array_rand(['herbivore', 'carnivorous']);
+            $specification = "{$length} {$diet} dinosaur";
+            $dinosaur = $this->dinosaurFactory->growFromSpecification($specification);
+            $enclosure->addDinosaur($dinosaur);
+        }
     }
 }

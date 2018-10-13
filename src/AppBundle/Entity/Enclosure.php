@@ -38,6 +38,11 @@ class Enclosure
         }
     }
 
+    public function getSecurities(): Collection
+    {
+        return $this->securities;
+    }
+
     public function getDinosaurs() : Collection
     {
         return $this->dinosaurs;
