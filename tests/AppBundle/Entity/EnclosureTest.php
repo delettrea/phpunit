@@ -40,6 +40,7 @@ class EnclosureTest extends TestCase
     {
         $enclosure = new Enclosure(true);
         $enclosure->addDinosaur(new Dinosaur('Velociraptor', true));
+        $this->expectException(NotABuffetException::class);
         $enclosure->addDinosaur(new Dinosaur());
     }
 
@@ -50,4 +51,6 @@ class EnclosureTest extends TestCase
         $this->expectExceptionMessage('Are you craaazy?!?');
         $enclosure->addDinosaur(new Dinosaur());
     }
+
+
 }

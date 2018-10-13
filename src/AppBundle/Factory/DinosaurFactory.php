@@ -29,7 +29,7 @@ class DinosaurFactory
         return $dinosaur;
     }
 
-    public function growFromSpecification(string $specification) : Dinosaur
+    public function growFromSpecification(string $specification): Dinosaur
     {
         $codeName = 'InG-' . random_int(1, 99999);
         $length = $this->lengthDeterminator->getLengthFromSpecification($specification);
@@ -42,7 +42,6 @@ class DinosaurFactory
     }
 
     private function getLengthFromSpecification(string $specification): int
-
     {
         $availableLengths = [
             'huge' => ['min' => Dinosaur::HUGE, 'max' => 100],
