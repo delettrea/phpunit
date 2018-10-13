@@ -25,13 +25,13 @@ class EnclosureBuilderService
         $this->entityManager = $entityManager;
         $this->dinosaurFactory = $dinosaurFactory;
     }
-    public function buildEnclosure(
-        int $numberOfSecuritySystems = 1, int $numberOfDinosaurs = 3): Enclosure
-
+    public function buildEnclosure(int $numberOfSecuritySystems = 1, int $numberOfDinosaurs = 3): Enclosure
     {
         $enclosure = new Enclosure();
         $this->addSecuritySystems($numberOfSecuritySystems, $enclosure);
         $this->addDinosaurs($numberOfDinosaurs, $enclosure);
+        $this->entityManager->persist($enclosure);
+        $this->entityManager->flush();
         return $enclosure;
     }
 
