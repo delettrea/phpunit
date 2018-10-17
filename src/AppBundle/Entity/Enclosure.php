@@ -35,6 +35,15 @@ class Enclosure
      */
     private $securities;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getDinosaurCount(): int
+    {
+        return $this->dinosaurs->count();
+    }
 
     public function __construct(bool $withBasicSecurity = false)
     {
